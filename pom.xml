@@ -8,15 +8,12 @@
   <packaging>war</packaging>
   <name>web-kr</name>
   
-  <build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>6.1.25</version>
-				<configuration>
-					<jettyConfig>jetty-config/jetty.xml</jettyConfig>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
