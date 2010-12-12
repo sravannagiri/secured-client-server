@@ -19,7 +19,9 @@ public class SocketWrapper {
 					new OutputStreamWriter( socket.getOutputStream() ) );
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("[CLIENT-SERVER ERROR] " + 
+					e.getMessage());
 		}
 	}
 	
@@ -33,7 +35,9 @@ public class SocketWrapper {
 			this.writer.flush();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("[CLIENT-SERVER ERROR] " + 
+					e.getMessage());
 		}
 	}
 	

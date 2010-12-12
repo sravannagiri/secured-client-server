@@ -1,6 +1,6 @@
 package scsa.server;
 
-public class ServerCommand {
+public abstract class ServerCommand {
 	
 	protected UsersStore users = null;
 	
@@ -8,8 +8,6 @@ public class ServerCommand {
 		this.users = users;
 	}
 	
-	public String process(String[] params) {
-		return null;
-	}
+	public abstract String process(String[] params);
 	
 }
