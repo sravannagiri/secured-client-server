@@ -12,17 +12,15 @@ public class AccessManager {
 		this.users = users;
 		
 		this.allowedCommands = new HashMap<String, ArrayList<String>>();
-		
-		this.addAllowedCommand("ADMIN", "userslist");
 	}
 	
-//	private void loadPermissions(String filename) {
-//		//
-//	}
+	public void loadPermissions(String filename) {
+		//
+	}
 	
-//	private void savePermissions(String filename) {
-//		//
-//	}
+	public void savePermissions(String filename) {
+		//
+	}
 	
 	
 	private void addUserRole(String userRole) {
