@@ -15,6 +15,8 @@ public class UsersStore {
 	
 	public UsersStore(String filename) {
 		this.filename = filename;
+		
+		this.load();
 	}
 	
 	@SuppressWarnings("unchecked")
