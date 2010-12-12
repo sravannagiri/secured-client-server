@@ -19,7 +19,9 @@ public class SocketWrapper {
 					new OutputStreamWriter( socket.getOutputStream() ) );
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("[SocketWrapper ERROR]: " + 
+					e.getMessage());
 		}
 	}
 	
@@ -33,7 +35,9 @@ public class SocketWrapper {
 			this.writer.flush();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("[SocketWrapper ERROR]: " + 
+					e.getMessage());
 		}
 	}
 	
@@ -50,7 +54,9 @@ public class SocketWrapper {
 			//System.out.println("bytes read: " + len + " (" + line.length() + ")");
 				
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("[SocketWrapper ERROR]: " + 
+					e.getMessage());
 		}
 
 		return line;

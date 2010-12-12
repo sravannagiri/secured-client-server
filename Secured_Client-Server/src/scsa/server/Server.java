@@ -21,7 +21,7 @@ public class Server {
 	}
 	
 	private void init() {		
-		usersStore = new UsersStore();
+		usersStore = new UsersStore("users.dat");
 		accessManager = new AccessManager(usersStore);
 		accessManager.addAllowedCommand("ADMIN", "userslist");
 		accessManager.addAllowedCommand("ADMIN", "userdetails");
