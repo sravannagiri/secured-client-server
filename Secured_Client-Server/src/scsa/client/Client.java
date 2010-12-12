@@ -47,7 +47,7 @@ public class Client {
 	      String hello = s.read();
 	      System.out.println( rsa.decrypt(hello, publicKey) );
 	      
-	      // inpput login
+	      // input login
 	      String fromServer = s.read();
 		  System.out.print(rsa.decrypt(fromServer, publicKey));
 		  
