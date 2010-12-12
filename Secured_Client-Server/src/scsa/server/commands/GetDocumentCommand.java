@@ -5,8 +5,6 @@ import scsa.server.UsersStore;
 
 public class GetDocumentCommand extends ServerCommand {
 
-	private String[] documents = null;
-	
 	public GetDocumentCommand(UsersStore users) {
 		super(users);
 	}
