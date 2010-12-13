@@ -65,7 +65,7 @@ public class Client {
 		  fromServer = rsa.decrypt(tmp0, publicKey);
 		  
 		  if ( fromServer.indexOf("successfully") == -1 ) {
-			  System.out.println("Login failed");
+			  System.out.println("Login failed: " + fromServer);
 			  return;
 		  }
 		  s.write(rsa.encrypt("ok", publicKey));
