@@ -48,7 +48,7 @@ public class RSAEncryption {
 	   a.generateKeys();
 	   
 	   KeyFactory fact = KeyFactory.getInstance("RSA");
-	   RSAPublicKeySpec pub = fact.getKeySpec(a.getPublicKey(), 
+	   RSAPublicKeySpec pub = (RSAPublicKeySpec) fact.getKeySpec(a.getPublicKey(), 
 			   RSAPublicKeySpec.class);
 	   
 	   pub.getModulus();
