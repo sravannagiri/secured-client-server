@@ -2,11 +2,11 @@
   
   <modelVersion>4.0.0</modelVersion>
   
-  <groupId>web-kr</groupId>
-  <artifactId>web-kr</artifactId>
+  <groupId>secured-client-server</groupId>
+  <artifactId>secured-client-server</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>web-kr</name>
+  <name>secured-client-server</name>
   
 	<build>
 		<plugins>
