@@ -47,7 +47,7 @@ public class Client {
 	      String hello = s.read();
 	      System.out.println( rsa.decrypt(hello, publicKey) );
 	      
-	      // inpput login
+	      // input login
 	      String fromServer = s.read();
 		  System.out.print(rsa.decrypt(fromServer, publicKey));
 		  
@@ -60,6 +60,15 @@ public class Client {
 		  
 		  String pass = console.readLine();
 		  s.write(rsa.encrypt(pass, publicKey));
+		  
+		  String tmp0 = s.read();
+		  fromServer = rsa.decrypt(tmp0, publicKey);
+		  
+		  if ( fromServer.indexOf("successfully") == -1 ) {
+			  System.out.println("Login failed");
+			  return;
+		  }
+		  s.write(rsa.encrypt("ok", publicKey));
 		  
 	      while (true) {
 	    	  String tmp = s.read();

@@ -15,19 +15,26 @@ class ProcessConnection extends Thread {
 	   
 	   CommandProcessor commandProcessor = null;
 	   UsersStore usersStore = null;
-	   AccessManager accessManager = null;	   
+	   AccessManager accessManager = null;
 	   
-	   public ProcessConnection(Socket s,
+	   private Authorisation a;
+	   
+	   public ProcessConnection(
 			   CommandProcessor commandProcessor,
 			   AccessManager accessManager,
 			   UsersStore usersStore) {
-	      this.clientSocket = s;
-	      this.socketWrapper = new SocketWrapper(clientSocket);
-	      this.start();
 	      
 	      this.commandProcessor = commandProcessor;
 	      this.usersStore = usersStore;
 	      this.accessManager = accessManager;
+	      
+	      a = new Authorisation();
+		  a.generateKeys();
+	   }
+	   
+	   public void setClientSocket(Socket s) {
+		   this.clientSocket = s;
+		   this.socketWrapper = new SocketWrapper(clientSocket);
 	   }
 	 
 	   public void run() {
@@ -36,9 +43,6 @@ class ProcessConnection extends Thread {
 		   int loginAttempts = 0;
 		   
 		   try {
-			   
-			   Authorisation a = new Authorisation();
-			   a.generateKeys();
 			   
 			   KeyFactory fact = KeyFactory.getInstance("RSA");
 			   RSAPublicKeySpec pub = fact.getKeySpec(a.getPublicKey(), 
@@ -54,12 +58,11 @@ class ProcessConnection extends Thread {
 			   
 			   String user = null, pass = null;
 			   
-			   socketWrapper.write(rsa.encrypt(
-					   "login as: ", a.getPrivateKey()));
+			   socketWrapper.write(rsa.encrypt("login as: ", a.getPrivateKey()));
 			   user = rsa.decrypt(socketWrapper.read(), a.getPrivateKey());
 			   System.out.println("[FROM CLIENT] " + user);
 			   
-			   while ( ! loginSuccessfull && loginAttempts < 3 ) {
+			   while ( ! loginSuccessfull && loginAttempts < 1 ) {
    				   
 				   if ( loginAttempts > 0 )
 					   socketWrapper.write(rsa.encrypt(
@@ -107,6 +110,11 @@ class ProcessConnection extends Thread {
 					   socketWrapper.write(rsa.encrypt(
 							   "[quit]", a.getPrivateKey()));
 					   break;
+				   }
+				   
+				   if (userInput.equals("ok")) {
+					   socketWrapper.write(rsa.encrypt("ok", a.getPrivateKey()));
+					   continue;
 				   }
 				   
 				   socketWrapper.write(

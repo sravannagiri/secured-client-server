@@ -14,7 +14,9 @@ public class Server {
 	
 	CommandProcessor commandProcessor = null;
 	UsersStore usersStore = null;
-	AccessManager accessManager = null;	
+	AccessManager accessManager = null;
+	
+	ProcessConnection connections[] = null;
 	
 	public static final int PORT = 7070;
 	
@@ -41,11 +43,17 @@ public class Server {
 		commandProcessor.addCommand("getdocument", new GetDocumentCommand(usersStore));
 		commandProcessor.addCommand("adduser", new AddUserCommand(usersStore));
 		commandProcessor.addCommand("updateuserstatus", new UpdateUserStatusCommand(usersStore));
+		
+		connections = new ProcessConnection[] {
+				new ProcessConnection(commandProcessor,	accessManager, usersStore),
+				new ProcessConnection(commandProcessor,	accessManager, usersStore),
+				new ProcessConnection(commandProcessor,	accessManager, usersStore)
+		};
 	}
 	
 	public void run() {
-		
-		init();
+	
+		int i=0;
 		
 		ServerSocket listen;
 		
@@ -54,11 +62,10 @@ public class Server {
 			while(true) {
 				Socket client = listen.accept();
 				
-				new ProcessConnection(
-						client,
-						commandProcessor,
-						accessManager,
-						usersStore );
+				connections[i%connections.length].setClientSocket(client);
+				connections[i%connections.length].start();
+				
+				i++;
 			}
 		} catch (Exception e) {
 			System.out.println("[Exception] " + e.getMessage());
@@ -67,6 +74,7 @@ public class Server {
 	
 	public static void main(String args[]) {
 		Server server = new Server();
+		server.init();
 		System.out.println("[SERVER STARTED]");
 		server.run();
 	}
