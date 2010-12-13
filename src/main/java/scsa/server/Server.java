@@ -24,7 +24,10 @@ public class Server {
 		return new ServerSocket(PORT);
 	}
 	
-	private void init() {		
+	private void init() {
+		
+		System.out.println("Server initialization, please wait...");
+		
 		usersStore = new UsersStore("users.dat");
 		
 		accessManager = new AccessManager(usersStore);
@@ -62,10 +65,22 @@ public class Server {
 			while(true) {
 				Socket client = listen.accept();
 				
-				connections[i%connections.length].setClientSocket(client);
-				connections[i%connections.length].start();
-				
-				i++;
+				if ( i < connections.length ) {
+					connections[i].setClientSocket(client);
+					connections[i].start();
+					
+					i++;
+					System.out.println("Client number: " + i);
+				} else {
+					System.out.println("Generating new ProcessConnectors");
+					// do some code for adding ProcessConnection's
+					connections = new ProcessConnection[] {
+							new ProcessConnection(commandProcessor,	accessManager, usersStore),
+							new ProcessConnection(commandProcessor,	accessManager, usersStore),
+							new ProcessConnection(commandProcessor,	accessManager, usersStore)
+					};
+					i = 0;
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("[Exception] " + e.getMessage());
