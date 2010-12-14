@@ -6,17 +6,36 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <script language="javascript">
+function callServer(url, queryString)
+{
+	var httpRequest = new XMLHttpRequest();
+	httpRequest.open('POST', url, true);
+	httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+	httpRequest.onreadystatechange = function()
+	{
+		if (httpRequest.readyState == 4)
+		{
+			var text = document.getElementById('result');
+			text.value += httpRequest.responseText;
+		}
+	}
+	httpRequest.send(queryString);
+}
+
 function doCommand() {
 	var command = document.getElementById('command').value;
 	var params = document.getElementById('params').value;
 
-	alert(command + ' ' + params);
+	//alert(command + ' ' + params);
 
 	var queryString = "?command=" + command + "&params=" + params;
 	var contextPath = document.getElementById('contextPath').value;
 	var url = contextPath + "/doCommand" + queryString;
 
-	alert(url);
+	//alert(url);
+
+	callServer(url, queryString);
 }
 </script>
 </head>
@@ -30,10 +49,17 @@ function doCommand() {
 	<option value="adduser">adduser</option>
 	<option value="userslist">userslist</option>
 	<option value="userdetails">userdetails</option>
+	<option value="updateuserstatus">updateuserstatus</option>
+	<option value="getdocument">getdocument</option>
 </select>
 
 <input type="text" id="params" size="50" />
 <input type="button" value="Submit" onclick="doCommand()" />
+<a href="<%=request.getContextPath() %>/logout">[LOGOUT]</a>
+
+<br /><br />
+
+<textarea id="result" rows="20" cols="80" readonly></textarea>
 
 </body>
 </html>

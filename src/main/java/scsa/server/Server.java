@@ -48,10 +48,13 @@ public class Server {
 		commandProcessor.addCommand("updateuserstatus", new UpdateUserStatusCommand(usersStore));
 		
 		connections = new ProcessConnection[] {
-				new ProcessConnection(commandProcessor,	accessManager, usersStore),
-				new ProcessConnection(commandProcessor,	accessManager, usersStore),
-				new ProcessConnection(commandProcessor,	accessManager, usersStore)
+				new ProcessConnection(commandProcessor, accessManager, usersStore),
+				new ProcessConnection(commandProcessor, accessManager, usersStore),
+				new ProcessConnection(commandProcessor, accessManager, usersStore)
 		};
+		
+		System.out.println("Server initialization complete.\n " +
+				"Server is ready to accept client connections.");
 	}
 	
 	public void run() {
@@ -71,16 +74,19 @@ public class Server {
 					
 					i++;
 					System.out.println("Client number: " + i);
-				} else {
-					System.out.println("Generating new ProcessConnectors");
-					// do some code for adding ProcessConnection's
-					connections = new ProcessConnection[] {
-							new ProcessConnection(commandProcessor,	accessManager, usersStore),
-							new ProcessConnection(commandProcessor,	accessManager, usersStore),
-							new ProcessConnection(commandProcessor,	accessManager, usersStore)
-					};
-					i = 0;
-				}
+					
+					if (i==connections.length) {
+						System.out.println("Generating new ProcessConnectors");
+						connections = new ProcessConnection[] {
+								new ProcessConnection(commandProcessor, accessManager, usersStore),
+								new ProcessConnection(commandProcessor, accessManager, usersStore),
+								new ProcessConnection(commandProcessor, accessManager, usersStore)
+						};
+						System.out.println("Generating new ProcessConnectors complete");
+						i = 0;
+					}
+				} 
+				
 			}
 		} catch (Exception e) {
 			System.out.println("[Exception] " + e.getMessage());

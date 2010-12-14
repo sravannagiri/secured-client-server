@@ -26,6 +26,18 @@
 		</tr>
 	</table>
 	</form>
+	
+	<div>
+	<%
+		if ( request.getAttribute("errorMessage") != null ) {
+			String errorMessage = (String) request.getAttribute("errorMessage");
+			%>
+			<font color="red"><%=errorMessage %></font>	
+			<%
+		}
+	%>
+	
+	</div>
 
 </body>
 </html>
