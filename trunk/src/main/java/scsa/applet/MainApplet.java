@@ -54,6 +54,9 @@ public class MainApplet extends JApplet {
 				return;
 			}
 			
+			if ( input.equals("quit") )
+				logoutButtonClick.actionPerformed(e);
+			
 			String output = null;
 			
 			try {
