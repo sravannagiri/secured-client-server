@@ -45,7 +45,14 @@ public class MainApplet extends JApplet {
 	
 	private ActionListener submitButtonClick = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			
 			String input = commandInput.getText();
+			
+			if ( ! isLoggedIn || input.trim().length() == 0 ) {
+				commandInput.setText( "[Not logged in]" );
+				commandResult.setText( "[Not logged in]" );
+				return;
+			}
 			
 			String output = null;
 			
@@ -64,6 +71,12 @@ public class MainApplet extends JApplet {
 		public void actionPerformed(ActionEvent e) {
 			
 			String output = null;
+			
+			if ( ! isLoggedIn ) {
+				commandInput.setText( "[Not logged in]" );
+				commandResult.setText( "[Not logged in]" );
+				return;
+			}
 			
 			try {
 				client.command("quit");
