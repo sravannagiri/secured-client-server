@@ -114,7 +114,7 @@ public class Client {
 				IllegalBlockSizeException, 
 				BadPaddingException, 
 				UnsupportedEncodingException 
-		{
+		{	
 			  s.write(rsa.encrypt(str, this.serverPublicKey));
 			  
 			  String tmp = s.read();
