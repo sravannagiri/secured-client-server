@@ -88,6 +88,8 @@ public class MainApplet extends JApplet {
 				
 				commandInput.setText( output );
 				commandResult.setText( output );
+				
+				isLoggedIn = false;
 			}
 			
 		}
