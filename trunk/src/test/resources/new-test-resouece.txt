@@ -1,0 +1,1 @@
+This file was added just to check if it is OK to commit to GoogleCode SVN.
