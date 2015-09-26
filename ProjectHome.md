@@ -1,0 +1,1 @@
+Java application for secured communication between client and server using RSA encryption.
